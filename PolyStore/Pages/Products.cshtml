@@ -1,0 +1,49 @@
+﻿@page
+@model ProductsModel
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Products</h1>
+</div>
+
+<div class="row mb-2">
+    <div class="col-md-4">
+        There are @Model.Products.Count() products in this store.
+    </div>
+    <div class="col-md-4">
+        <form asp-page="Products" asp-page-handler="GenerateRandomProduct" method="post">
+            <i class="glyphicon glyphicon-plus-sign"></i>&nbsp;
+            <input type="submit" class="btn btn-primary" value="New Random Product">
+            <input asp-for="@Model.StoreId" hidden>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <a asp-page="/Index">Back to store list</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" width="20%">Products</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Products)
+                {
+                    <tr>
+                        <td>
+                            @item.ToString()
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

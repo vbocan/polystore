@@ -1,0 +1,57 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to the PolyStore</h1>
+</div>
+
+<div class="row mb-2">
+    <div class="col-md-4">
+        There are @Model.Stores.Count() stores in this area.
+    </div>
+    <div class="col-md-4">
+        <form asp-page="Index" asp-page-handler="GenerateRandomStore" method="post">
+            <i class="glyphicon glyphicon-plus-sign"></i>&nbsp;
+            <input type="submit" class="btn btn-primary" value="New Random Store">            
+        </form>
+    </div>    
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-hover">
+            <thead>
+                <tr>                    
+                    <th scope="col" width="30%">Store Name</th>
+                    <th scope="col" width="45%">Store Address</th>
+                    <th scope="col" width="15%">Product Count</th>
+                    <th scope="col" width="10%">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Stores)
+                {
+                    <tr>
+                        <td scope="row">
+                            @item.StoreName
+                        </td>
+                        <td scope="row">
+                            @item.StoreAddress
+                        </td>
+                        <td scope="row">
+                            @item.Products.Count()
+                        </td>
+                        <td>
+                            <a asp-page="Products" asp-route-id="@item.Id">
+                                <i class="glyphicon glyphicon-shopping-cart" title="Visit Store" data-toggle="tooltip" data-placement="top"></i> Visit Store
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
